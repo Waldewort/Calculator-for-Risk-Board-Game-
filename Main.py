@@ -13,9 +13,9 @@ def normalwürfeln():
     return x, y 
 
 
-a = a1 = int(input("Anzahl Angreifer: "))
-v = v1 = int(input("Anzahl Verteidiger: "))
-ü = int(input("Anzahl der Angreifer die übrig bleiben sollen: "))
+a = a1 = int(input("Number of attackers: "))
+v = v1 = int(input("Number of defenders: "))
+ü = int(input("Number of attackers that should remain: "))
 i = 1 
 t1 = time.time()
 
@@ -96,7 +96,7 @@ while a > ü and v > 0:
                 pass
 
 verhältnis = (a1-a)/(v1-v)
-print("Es bleiben, ", a, " Angreifer übrig")
-print("Es bleiben, ", v, " Verteidiger übrig")
-print("Rechenzeit: ", time.time()-t1 , " Sekunden")
-#print("Verhältnis der Verluste(1 = Ausgeglichen): ", verhältnis)
+print("There are, ", a, " attackers left")
+print("There are, ", v, " defenders left")
+print("Calculation time: ", time.time()-t1 , " seconds")
+#print("Ratio of losses(1 = Even): ", verhältnis)
