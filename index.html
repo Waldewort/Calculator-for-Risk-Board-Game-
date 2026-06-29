@@ -1,19 +1,91 @@
-﻿<!DOCTYPE html>
-<html lang="de">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Risikorechner</title>
-  <style>
-    body { font-family: Arial, sans-serif; padding: 2rem; line-height: 1.6; }
-    .button { display: inline-block; margin: 0.5rem 0; padding: 0.6rem 1rem; background: #007acc; color: white; text-decoration: none; border-radius: 0.3rem; }
-    .button:hover { background: #005a9e; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stardance Project - Risk Calculator</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #121212;
+            color: #ffffff;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .card {
+            background-color: #1e1e1e;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.6);
+            width: 100%;
+            max-width: 450px;
+            text-align: center;
+        }
+        h1 {
+            margin-top: 0;
+            font-size: 32px;
+            color: #ffffff;
+            font-weight: 600;
+        }
+        p {
+            color: #aaaaaa;
+            font-size: 15px;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 14px;
+            margin-top: 15px;
+            font-size: 16px;
+            font-weight: bold;
+            text-decoration: none;
+            border-radius: 6px;
+            box-sizing: border-box;
+            transition: background 0.2s, transform 0.1s;
+        }
+        .btn-main {
+            background-color: #005999;
+            color: white;
+            border: none;
+        }
+        .btn-main:hover {
+            background-color: #007acc;
+        }
+        .btn-secondary {
+            background-color: #2d2d2d;
+            color: #cccccc;
+            border: 1px solid #3d3d3d;
+        }
+        .btn-secondary:hover {
+            background-color: #3d3d3d;
+            color: white;
+        }
+        .footer-note {
+            margin-top: 30px;
+            font-size: 12px;
+            color: #666666;
+        }
+    </style>
 </head>
 <body>
-  <h1>Risikorechner</h1>
-  <p>Hier ist der Link zum Python-Skript:</p>
-  <p><a class="button" href="Main.py" download>Python-Skript herunterladen</a></p>
-  <p><a class="button" href="Main.py">Python-Skript anzeigen</a></p>
-  <p>Um das Skript auszuführen, öffnen Sie es in Python oder verwenden Sie eine passende Server-Umgebung.</p>
+
+    <div class="card">
+        <h1>Risk Calculator</h1>
+        <p>This is the official submission page for the Stardance project. You can download the Python script below or view the source code directly in your browser.</p>
+        
+        <a href="Main.py" download="Main.py" class="btn btn-main">Download Python Script</a>
+        
+        <a href="Main.py" target="_blank" class="btn btn-secondary">View Source Code</a>
+        
+        <div class="footer-note">
+            To run the script locally, ensure you have Python installed on your system.
+        </div>
+    </div>
+
 </body>
 </html>
