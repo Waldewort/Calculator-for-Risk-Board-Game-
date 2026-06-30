@@ -1,91 +1,194 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stardance Project - Risk Calculator</title>
+    <title>Risk Calculator</title>
     <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #121212;
-            color: #ffffff;
-            margin: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
+        body { 
+            font-family: Arial, sans-serif; 
+            margin: 40px; 
+            background-color: #f4f4f9; 
         }
-        .card {
-            background-color: #1e1e1e;
-            padding: 40px;
-            border-radius: 12px;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.6);
-            width: 100%;
-            max-width: 450px;
-            text-align: center;
+        .container { 
+            max-width: 500px; 
+            margin: auto; 
+            padding: 20px; 
+            background: white; 
+            border: 1px solid #ccc; 
+            border-radius: 8px; 
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1); 
         }
-        h1 {
-            margin-top: 0;
-            font-size: 32px;
-            color: #ffffff;
-            font-weight: 600;
+        label { 
+            display: block; 
+            margin-top: 15px; 
+            font-weight: bold; 
         }
-        p {
-            color: #aaaaaa;
-            font-size: 15px;
-            line-height: 1.6;
-            margin-bottom: 30px;
+        input { 
+            width: 100%; 
+            padding: 8px; 
+            margin-top: 5px; 
+            box-sizing: border-box; 
+            border: 1px solid #ccc; 
+            border-radius: 4px; 
         }
-        .btn {
-            display: block;
-            width: 100%;
-            padding: 14px;
-            margin-top: 15px;
-            font-size: 16px;
-            font-weight: bold;
-            text-decoration: none;
-            border-radius: 6px;
-            box-sizing: border-box;
-            transition: background 0.2s, transform 0.1s;
+        button { 
+            margin-top: 20px; 
+            width: 100%; 
+            padding: 12px; 
+            background-color: #007bff; 
+            color: white; 
+            border: none; 
+            border-radius: 4px; 
+            cursor: pointer; 
+            font-size: 16px; 
         }
-        .btn-main {
-            background-color: #005999;
-            color: white;
-            border: none;
+        button:hover { 
+            background-color: #0056b3; 
         }
-        .btn-main:hover {
-            background-color: #007acc;
-        }
-        .btn-secondary {
-            background-color: #2d2d2d;
-            color: #cccccc;
-            border: 1px solid #3d3d3d;
-        }
-        .btn-secondary:hover {
-            background-color: #3d3d3d;
-            color: white;
-        }
-        .footer-note {
-            margin-top: 30px;
-            font-size: 12px;
-            color: #666666;
+        #ergebnis { 
+            margin-top: 20px; 
+            font-weight: bold; 
+            white-space: pre-line; 
+            color: #333; 
+            border-top: 2px solid #eee; 
+            padding-top: 15px;
         }
     </style>
 </head>
 <body>
 
-    <div class="card">
-        <h1>Risk Calculator</h1>
-        <p>This is the official submission page for the Stardance project. You can download the Python script below or view the source code directly in your browser.</p>
+<div class="container">
+    <h2>Risk Calculator</h2>
+
+    <label for="angreifer">Attackers:</label>
+    <input type="number" id="angreifer" value="10">
+
+    <label for="verteidiger">Defenders:</label>
+    <input type="number" id="verteidiger" value="10">
+
+    <label for="uebrig">Number of attackers that should remain:</label>
+    <input type="number" id="uebrig" value="0">
+
+    <button onclick="starteSimulation()">Start Battle</button>
+
+    <div id="ergebnis">Waiting for input...</div>
+</div>
+
+<script>
+// Entspricht der def würfeln() aus Python
+function wuerfeln() {
+    return Math.floor(Math.random() * 6) + 1;
+}
+
+// Entspricht der def normalwürfeln() aus Python
+function normalwuerfeln() {
+    let x = [wuerfeln(), wuerfeln(), wuerfeln()];
+    x.sort((a, b) => a - b); // Numerische Sortierung im JS
+    let y = [wuerfeln(), wuerfeln()];
+    y.sort((a, b) => a - b);
+    return { x, y };
+}
+
+function starteSimulation() {
+    // Werte aus den Eingabefeldern auslesen
+    let a = parseInt(document.getElementById("angreifer").value);
+    let v = parseInt(document.getElementById("verteidiger").value);
+    let ue = parseInt(document.getElementById("uebrig").value);
+    
+    // Zeitmessung starten
+    let t1 = performance.now();
+    let i = 1;
+
+    // --- IHRE LOGIK AUS MAIN.PY IN JAVASCRIPT ---
+    while (a > ue && v > 0) {
+        if (a >= 3 && v >= 2) {
+            let res = normalwuerfeln();
+            let x = res.x;
+            let y = res.y;
+            
+            if (x[1] > y[0]) {
+                v -= 1;
+            } else {
+                a -= 1;
+            }
+
+            if (x[2] > y[1]) {
+                v -= 1;
+            } else {
+                a -= 1;
+            }
+            i += 1;
+        }
         
-        <a href="Main.py" download="Main.py" class="btn btn-main">Download Python Script</a>
-        
-        <a href="Main.py" target="_blank" class="btn btn-secondary">View Source Code</a>
-        
-        <div class="footer-note">
-            To run the script locally, ensure you have Python installed on your system.
-        </div>
-    </div>
+        if (v < 2 && v > 0) {
+            let x = [];
+            let z = 0;
+            if (a >= 3) {
+                x = [wuerfeln(), wuerfeln(), wuerfeln()];
+                x.sort((num1, num2) => num1 - num2);
+                z = 3;
+            } else if (a === 2) {
+                x = [wuerfeln(), wuerfeln()];
+                x.sort((num1, num2) => num1 - num2);
+                z = 2;
+            } else if (a === 1) {
+                x = [wuerfeln()];
+                z = 1;
+            }
+            let y = [wuerfeln()];
+
+            if (x[z - 1] > y[0]) {
+                v -= 1;
+            } else {
+                a -= 1;
+            }
+        }
+
+        if (a < 3 && a > 0) {
+            if (a > ue && v > 0) {
+                let y = [];
+                let z = 0;
+                if (v >= 2) {
+                    y = [wuerfeln(), wuerfeln()];
+                    y.sort((num1, num2) => num1 - num2);
+                    z = 2;
+                } else if (v === 1) {
+                    y = [wuerfeln()];
+                    z = 1;
+                }
+
+                let x = [];
+                let z1 = 0;
+                if (a === 2) {
+                    x = [wuerfeln(), wuerfeln()];
+                    x.sort((num1, num2) => num1 - num2);
+                    z1 = 2;
+                } else if (a === 1) {
+                    x = [wuerfeln()];
+                    x.sort((num1, num2) => num1 - num2);
+                    z1 = 1;
+                }
+
+                if (x[z1 - 1] > y[z - 1]) {
+                    v -= 1;
+                } else {
+                    a -= 1;
+                }
+            }
+        }
+    }
+    // --- ENDE DER LOGIK ---
+
+    // Zeit berechnen (In Sekunden umrechnen)
+    let t2 = performance.now();
+    let rechenzeit = (t2 - t1) / 1000;
+
+    // Ergebnis auf der Webseite ausgeben
+    let ausgabe = `There are ${a} attackers left.\nThere are ${v} defenders left.\nCalculation time: ${rechenzeit.toFixed(6)} seconds.`;
+    document.getElementById("ergebnis").innerText = ausgabe;
+}
+</script>
 
 </body>
 </html>
